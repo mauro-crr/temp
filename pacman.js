@@ -6,7 +6,13 @@
 function FindProxyForURL(url, host) {
 // If IP address is Intesa PROD, send to VPN proxy PROD
     if (
-      !shExpMatch(url, "*salvmp402*") &&
+	!shExpMatch(url, "*salvmp402*")
+    )
+    {
+	    return "PROXY 10.41.2.10:1199";
+    }
+	
+    if (
 		shExpMatch(url, "*sede.corp.sanpaoloimi.com*") ||
 		shExpMatch(url, "*websso.filiali.corp.sanpaoloimi.com*elkprod.sede.corp.sanpaoloimi.com*")
     )
