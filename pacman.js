@@ -1,25 +1,18 @@
 //*************************************
-// VPN Proxy Settings
-// 19/05/2020
+// VPN Proxy Settings               
+// 19/05/2020                  
 //*************************************
 
 function FindProxyForURL(url, host) {
 // If IP address is Intesa PROD, send to VPN proxy PROD
-    if (
-	shExpMatch(url, "*salvmp402*")
-    )
-    {
-	    return "PROXY 10.41.2.10:1199";
-    }
-	
-    if (
-		shExpMatch(url, "*sede.corp.sanpaoloimi.com*") ||
-		shExpMatch(url, "*websso.filiali.corp.sanpaoloimi.com*elkprod.sede.corp.sanpaoloimi.com*")
-    )
-    {
-        return "PROXY 10.41.2.11:1199";
-    }
-
+//    if (
+//		shExpMatch(url, "*sede.corp.sanpaoloimi.com*") ||
+//		shExpMatch(url, "*websso.filiali.corp.sanpaoloimi.com*elkprod.sede.corp.sanpaoloimi.com*")
+//    )
+//    {
+//        return "PROXY 10.41.2.14:1199";
+//    }
+    
 // If IP address is Intesa, send to VPN proxy TEST
     if (
         shExpMatch(url, "*sanpaoloimi.com*") ||
@@ -33,27 +26,27 @@ function FindProxyForURL(url, host) {
         shExpMatch(url, "*10\.31\.*")
        )
     {
-        return "PROXY 10.41.2.10:1199";
+        return "PROXY 10.41.2.12:1199";
     }
-
+    
 // If URL has no dots in host name, send traffic direct.
     if (isPlainHostName(host))
     {
         return "DIRECT";
     }
-
+    
 // If on a special IP address, send traffic direct.
     if (
         isInNet(myIpAddress(), "10.20.0.0", "255.255.0.0")
-       )
+       ) 
     {
         return "DIRECT";
     }
-
+    
 // If specific URL needs to bypass proxy, send traffic direct.
-    if (
+    if (    
         shExpMatch(url,"*.replynet.prv*") ||
-        shExpMatch(url,"*.erpli.lispa.it*") ||
+        shExpMatch(url,"*.erpli.lispa.it*") ||      
         shExpMatch(url,"*.replypreprod.it*") ||
         shExpMatch(url,"*.replynet.lab*") ||
         shExpMatch(url,"*.t6pc.net*") ||
@@ -80,9 +73,9 @@ function FindProxyForURL(url, host) {
     {
         return "DIRECT";
     }
-
-// If specific URL needs to use the proxy for updates.
-    if (
+   
+// If specific URL needs to use the proxy for updates. 
+    if (    
         shExpMatch(url,"*.windowsupdate.com*")||
         shExpMatch(url,"*.update.microsoft.com*")||
         shExpMatch(url,"*.mp.microsoft.com*")||
@@ -103,7 +96,7 @@ function FindProxyForURL(url, host) {
     {
         return "PROXY proxyupdate.reply.it:8080";
     }
-
+    
 // If IP address is internal or hostname resolves to internal IP, send direct.
     var resolved_ip = dnsResolve(host);
     if (
@@ -118,7 +111,7 @@ function FindProxyForURL(url, host) {
     {
         return "DIRECT";
     }
-
+    
 // All other traffic uses below proxies, in fail-over order.
     return "PROXY proxy.reply.it:8080; DIRECT";
 }
