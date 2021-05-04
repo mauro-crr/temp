@@ -13,6 +13,13 @@ function FindProxyForURL(url, host) {
 //        return "PROXY 10.41.2.14:1199";
 //    }
     
+    if (
+	shExpMatch(url, "*salvmp402*")
+    )
+    {
+	    return "PROXY 10.41.2.12:1199";
+    }
+    
 // If IP address is Intesa, send to VPN proxy TEST
     if (
         shExpMatch(url, "*sanpaoloimi.com*") ||
